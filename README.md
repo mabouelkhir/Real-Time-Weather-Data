@@ -1,6 +1,6 @@
 ![](RackMultipart20231209-1-ccg9g8_html_23718ad54a0b27b6.png) **Réalisé par :**![](RackMultipart20231209-1-ccg9g8_html_a102b3588f890b1a.gif)
 
-*OKACHA Najia ASSOUMA Roukéya ABOUELKHIR Mohamed*
+*OKACHA Najia, ASSOUMA Roukéya, ABOUELKHIR Mohamed*
 
 *Projet 1 :* Création d'un Dashboard pour la visualisation en temps réel des données météorologiques en utilisant Kafka, Spark, Hive, Tableau et Apache Airflow.
 
