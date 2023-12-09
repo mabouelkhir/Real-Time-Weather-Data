@@ -79,21 +79,13 @@ Ce projet nécessite l'installation et la configuration préalable de plusieurs 
 ### Création des *Conteneurs*
 
 - Élaborez un fichier docker-compose.yml décrivant les services nécessaires pour cette application.Se referer au fichier docker-compose.yml dans le dossier du projet.
-
-![](RackMultipart20231209-1-ccg9g8_html_a65d91d5da8bd819.jpg)
-
-![image](RackMultipart20231209-1-ccg9g8_html_30eb8da8873b30de.jpg)
-
-![](RackMultipart20231209-1-ccg9g8_html_9f24d2d589b4afa4.jpg)
-
-![](RackMultipart20231209-1-ccg9g8_html_ec72349a9149e998.jpg)
-
-![](RackMultipart20231209-1-ccg9g8_html_484940efd348ce4a.jpg)
-
-![](RackMultipart20231209-1-ccg9g8_html_78dbe9966a99f5c7.jpg)
-
-![](RackMultipart20231209-1-ccg9g8_html_78dbe9966a99f5c7.jpg)
 ![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/96ed2526-f2bb-4988-b759-d00f11cf6880)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/7c4fb362-8c49-44f6-b387-7e50b4dad659)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/5b386087-15c4-484b-b522-418137294c95)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/e0ee99b0-938e-4c41-b298-c28417f4e397)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/9b7775e7-3bc5-47c0-bffb-e16aa0f40d6b)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/c5230c47-8f57-417c-ab2e-078bbd92a2bc)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/84206c12-a02c-416e-94bc-d83d10f7dfd8)
 
 
 Figure 1.1 Code du fichier docker-compose pour la création des conteneurs docker
