@@ -88,7 +88,7 @@ Ce projet nécessite l'installation et la configuration préalable de plusieurs 
 ![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/84206c12-a02c-416e-94bc-d83d10f7dfd8)
 
 
-Figure 1.1 Code du fichier docker-compose pour la création des conteneurs docker
+        Figure 1.1 Code du fichier docker-compose pour la création des conteneurs docker
 
 1.
 ### Exécution des conteneurs
@@ -97,7 +97,8 @@ Pour démarrer les conteneurs définis dans votre fichier *docker-compose.yml* e
 
 Une fois les conteneurs lancés, vous pouvez lister les identifiants des conteneurs en cours d'exécution et leurs ports associés en utilisant la commande : docker ps
 
-![](RackMultipart20231209-1-ccg9g8_html_e56112a371fa3fed.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/d70aa62d-910a-4f03-b7f2-8aa232dfb7fa)
+
 
 Figure 1.2 Affichage de la liste des conteneurs
 
@@ -118,7 +119,8 @@ Pour accéder au shell d'un conteneur spécifique en mode bash, utilisez la comm
 
 docker exec -it id\_container /bin/bash
 
-![](RackMultipart20231209-1-ccg9g8_html_e61f92bf2a1f5690.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/996face2-d95b-4bc2-b9f9-d73bbe61fc28)
+
 
 Figure 1.3 Exécution d'un conteneur spécifique
 
@@ -131,7 +133,8 @@ Dans le cadre de ce projet, nous utilisons Tableau Desktop. Suivez ces étapes p
 
 - Rendez-vous sur le site officiel de Tableau : [Tableau Download](https://www.tableau.com/products/desktop/download)
 
-![](RackMultipart20231209-1-ccg9g8_html_67c4f366856405a5.png)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/71e4b71d-601a-41b7-a4da-4f5c231026ae)
+
 
 Figure 1.4 Site de téléchargement de tableau desktop
 
@@ -150,7 +153,8 @@ Pour connecter Tableau à Hive, vous pouvez utiliser le pilote ODBC (Open Databa
 
 - Téléchargez et installez un pilote ODBC compatible avec Hive sur votre machine. Un exemple courant est le pilote Apache Hive ODBC Driver, que vous pouvez trouver sur le site de CDATA : [CDATA Hive ODBC Driver](https://www.cdata.com/drivers/hive/odbc/).
 
-![](RackMultipart20231209-1-ccg9g8_html_5a329bb01e438ba0.png)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/08e5815b-3be5-4fe0-ae78-342e580bf4cb)
+
 
 Figure 1.5 Site de téléchargement de ODBC pour Hive
 
@@ -162,7 +166,8 @@ Figure 1.5 Site de téléchargement de ODBC pour Hive
 
 - Entrez les informations de connexion nécessaires, telles que le nom du serveur Hive, le port, le nom d'utilisateur et le mot de passe.
 
-![](RackMultipart20231209-1-ccg9g8_html_6fd3cc3bbc18084f.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/eeb033d3-fd67-48ab-a844-b1b83fa5c171)
+
 
 Figure 1.6 Etablissement de la connexion entre Hive et Tableau
 
@@ -189,7 +194,8 @@ Vous pouvez configurer les connexions de données pour qu'elles soient dynamique
 
 - Accédez au site web d'OpenWeatherMap: [OpenWeatherMap](https://openweathermap.org/api).
 
-![](RackMultipart20231209-1-ccg9g8_html_50a8eaef0f3f365a.png)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/ebaf78aa-6787-47f2-bc61-85225fef1ec3)
+
 
 Figure 3.1 Site de OpenWeather
 
@@ -197,7 +203,8 @@ Figure 3.1 Site de OpenWeather
 - Connectez-vous à votre compte OpenWeatherMap en utilisant les identifiants que vous avez créés.
 - Une fois connecté, recherchez la section "My API keys" (clés API) dans votre espace utilisateur.
 
-![](RackMultipart20231209-1-ccg9g8_html_23fffb8c5adcd01f.png)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/d296b590-cd3a-4e51-b7b5-c1385211a525)
+
 
 Figure 3.2 Obtention de la clé d'api
 
@@ -221,13 +228,14 @@ Pour collecter des données météorologiques depuis l'API OpenWeatherMap et les
 
 Note : en fonction de votre api : gratuit ou payant vous pouvez avoir accès à différents types de données. Assurer vous donc d'adapter le code en fonction de la structure des données météorologiques que vous souhaitez collecter.
 
-![](RackMultipart20231209-1-ccg9g8_html_e333aaaa86a067d.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/54b5758d-7941-4247-952b-b698cd53fb18)
+
 
 Figure 3.3 Code de collecte des données depuis l'api vers un topic Kafka
 
 Les données /les messages peuvent etre visualiser au niveau du control center à l'adresse ([*http://localhost:*** 90*](http://localhost:9021/)**21*)
 
-![](RackMultipart20231209-1-ccg9g8_html_33c8aeb6323b0c1c.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/3597923f-690a-40de-bd68-2b9a6972d5fe)
 
 Figure 3.4 Visualisation des données du topic Kafka sur le control center
 
@@ -249,19 +257,22 @@ Le code à la Figure 3.5 orchestre la réception de données depuis le topic Kaf
 
 Par la suite lancer l'exécution de votre code.
 
-![](RackMultipart20231209-1-ccg9g8_html_7a1cf9b47bc00ba0.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/09312238-efba-477d-9795-c47279d77263)
+
 
 Figure 3.5 Code pour récupérer les données du topic et les envoyer vers Hive
 
 Pour vérifier que les données ont été correctement stockées dans Hive, accéder à l'interface de Hadoop.
 
-![](RackMultipart20231209-1-ccg9g8_html_db6e269f2ff40678.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/ef93a023-265f-4548-9ad1-fcdb28ebb494)
+
 
 Figure 3.6 Vérification au niveau du namenode de l'ajout des données sur Hive
 
 Par la suite vous pouvez vérifier dans la base de données pour s'assurer que les données ont bien été enregistré :
 
-![](RackMultipart20231209-1-ccg9g8_html_b1aa8e3b4606a32f.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/cea62da7-c8ec-4ec2-8d3a-c2fa32f8b7c4)
+
 
 Figure 3.7 Vérification au niveau de Hive
 
@@ -281,7 +292,7 @@ Voici comment vous pouvez visualiser les données dans Tableau après avoir suiv
 
 - Choisissez la table ou la vue qui contient les données météorologiques.
 
-![](RackMultipart20231209-1-ccg9g8_html_fb57d8d273474c41.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/10045213-5945-4bc3-9470-326f9d27ca10)
 
 Figure 3.8 Importation des données de Hive sur tableau
 
@@ -296,11 +307,12 @@ Figure 3.8 Importation des données de Hive sur tableau
 
 - Ajoutez des filtres pour permettre aux utilisateurs de sélectionner des plages de dates, des villes ou d'autres critères spécifiques.
 
-![](RackMultipart20231209-1-ccg9g8_html_d116584db29638bc.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/8ad55e07-71b1-4876-af55-fa602087552b)
+
 
 Figure 3.9 Visualisation de la pression par date pour chaque ville
 
-![](RackMultipart20231209-1-ccg9g8_html_e6e41c72fe530383.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/2b42b6b2-a99a-4ab0-b970-627eef72548e)
 
 Figure 3.10 Visualisation des températures à chaque date pour chaque ville
 
@@ -309,7 +321,7 @@ Figure 3.10 Visualisation des températures à chaque date pour chaque ville
 
 Allez dans l'onglet "Tableau de Bord" pour créer une vue d'ensemble qui combine plusieurs visualisations.
 
-![](RackMultipart20231209-1-ccg9g8_html_a8e626970a92ed98.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/6bb82f6a-27ba-43ea-a729-efb979eda156)
 
 Figure 3.11 Tableau de bord représentant l'ensemble des visualisations
 
@@ -332,7 +344,7 @@ Pour se connecter à l'interface utilisez les identifiants suivants :
 - Nom d'utilisateur : admin
 - Mot de passe : admin
 
-![](RackMultipart20231209-1-ccg9g8_html_3f0a13145c03a7db.png)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/8d1d2203-9b1b-4ec1-93ec-43231c83c659)
 
 Figure 3.12 Interface utilisateur de Airflow
 
@@ -353,13 +365,10 @@ Vous trouverez le code dans le fichier dag.py dans le dossier du projet, copier 
 
 - Dans le code du dag modifier les adresses des notebooks selon les id
 
-![](RackMultipart20231209-1-ccg9g8_html_b11b1a9d0c0a9b38.jpg)
-
-![](RackMultipart20231209-1-ccg9g8_html_fba6cd98bf3ceeb1.jpg)
-
-![](RackMultipart20231209-1-ccg9g8_html_4ed1b3148d4e3794.jpg)
-
-![](RackMultipart20231209-1-ccg9g8_html_764b4c704c961a8c.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/eed5453e-46b6-48e5-bee7-4afcd7f319aa)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/5f20a79c-57eb-4465-a7d3-4ab489b5d60e)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/c1c8b8c1-ed51-414b-bfa7-f0f42f1d5f97)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/7d9d1f98-d912-450f-b550-0a8b09ae8495)
 
 Figure 3.13 Code du dag du projet
 
@@ -367,11 +376,11 @@ Figure 3.13 Code du dag du projet
 
 - Airflow va automatiquement détecter et charger votre DAG.
 
-![](RackMultipart20231209-1-ccg9g8_html_daa7b8c6ebfa3aab.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/a7c5d701-ea4d-49ff-8b70-586555b46aaa)
 
 Figure 3.14 Vérification de l'ajout du nouveau dag à la liste des dags
 
-![](RackMultipart20231209-1-ccg9g8_html_f4f44c5f5753bce1.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/3fad141b-9d5a-444e-b1c0-8063bce1acdc)
 
 Figure 3.15 Visualisation de l'exécution du dag créer
 
