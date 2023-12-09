@@ -93,6 +93,8 @@ Ce projet nécessite l'installation et la configuration préalable de plusieurs 
 ![](RackMultipart20231209-1-ccg9g8_html_78dbe9966a99f5c7.jpg)
 
 ![](RackMultipart20231209-1-ccg9g8_html_78dbe9966a99f5c7.jpg)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/96ed2526-f2bb-4988-b759-d00f11cf6880)
+
 
 Figure 1.1 Code du fichier docker-compose pour la création des conteneurs docker
 
