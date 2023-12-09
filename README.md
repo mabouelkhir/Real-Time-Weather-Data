@@ -82,7 +82,7 @@ Ce projet nécessite l'installation et la configuration préalable de plusieurs 
 
 ![](RackMultipart20231209-1-ccg9g8_html_a65d91d5da8bd819.jpg)
 
-![](RackMultipart20231209-1-ccg9g8_html_30eb8da8873b30de.jpg)
+![image](RackMultipart20231209-1-ccg9g8_html_30eb8da8873b30de.jpg)
 
 ![](RackMultipart20231209-1-ccg9g8_html_9f24d2d589b4afa4.jpg)
 
