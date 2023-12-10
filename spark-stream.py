@@ -44,5 +44,5 @@ df = spark.readStream \
     .select("data.*")
 
 # Write data to a Hive table in ORC format
-df.writeStream.outputMode("append").format("orc").option("path", "/user/hive/warehouse/weather_data2").option("checkpointLocation", "/tmp/checkpoint2").start().awaitTermination()
+df.writeStream.outputMode("append").format("orc").option("path", "/user/hive/warehouse/weather_data").option("checkpointLocation", "/tmp/checkpoint").start().awaitTermination()
 spark.stop()
