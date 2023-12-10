@@ -1,524 +1,387 @@
-# Hi there, I'm [Mrugank][linkedin] 👋 
-
-[![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC_o2rxaj5w_CAl5y_V1nqNg?logo=youtube&logoColor=red&style=for-the-badge)][youtube] [![My Website](https://img.shields.io/website?style=for-the-badge&url=https%3A%2F%2Fmrayonline.web.app%2F)][website] [![LinkedIn](https://img.shields.io/website?color=blue&label=linkedin&logo=linkedin&logoColor=blue&style=for-the-badge&up_color=green&up_message=mrugank%20ray&url=https%3A%2F%2Fmrayonline.web.app%2F)][linkedin] [![Buy me coffee](https://img.shields.io/website?label=Buy%20Me%20coffee&style=for-the-badge&up_color=orange&up_message=mrugank%20ray&url=https%3A%2F%2Fwww.buymeacoffee.com%2Fmrugankray)][buy_me_coffee]
-
-## Table of Contents
-1. [Overview](#overview)
-2. [Applications](#applications)
-3. [Running big data cluster](#running-big-data-cluster)
-4. [Access docker containers](#access-docker-containers)
-5. [Access hadoop ecosystem](#access-hadoop-ecosystem)
-6. [Containers running in the cluster](#containers-running-in-the-cluster)
-7. [Access HDFS](#access-hdfs)
-8. [Access Postgres DB](#access-postgres-db)
-9. [Access Kadmin](#access-kadmin)
-10. [Run hive queries](#run-hive-queries)
-11. [Run PySpark](#run-pyspark)
-12. [Run sqoop](#run-sqoop)
-13. [Run airflow](#run-airflow)
-14. [Create Kafka Topic](#create-kafka-topic)
-15. [Create Kafka Producer](#create-kafka-producer)
-16. [Create Kafka Consumer](#create-kafka-consumer)
-17. [Run flume agents](#run-flume-agents)
-18. [Run queries in cassandra](#run-queries-in-cassandra)
-19. [Available Jars](#available-jars)
-20. [Configure hadoop](#configure-hadoop)
-21. [Configure hue](#configure-hue)
-22. [Configure zeppelin](#configure-zeppelin)
-23. [Configure airflow](#configure-airflow)
-24. [Configure sqoop](#configure-sqoop)
-25. [Configure ssh server](#configure-ssh-server)
-26. [Build Custom Docker Images](#build-custom-docker-images)
-27. [Manage resources](#manage-resources)
-28. [Dependencies](#dependencies)
-
-## Overview
-Today, there are many projects available that were created to deploy a Spark or Hadoop cluster, but they are either ineffective or resource-intensive, causing the system to freeze. 
-This repository is created to simplify the deployment of these clusters on a local machine using Docker containers.
-
-## Applications
-This project will start a docker cluster which gives access to the following frameworks/technologies.
-|Framework/Technology | Version |
-|--- |--- |
-| Hadoop | 3.2.1 |
-| Mini-Conda | 4.12.0 |
-| Python | 3.9 |
-| Spark | 3.2.2(Built using scala 2.12)  |
-| Airflow | 2.3.3 |
-| Zeppelin | 0.10.1 |
-| Hive | 2.3.2 |
-| Hue | 4.6.0 |
-| Sqoop | 1.4.7 |
-| Confluent Kafka | 5.4.0-ce |
-| Confluent Schema Registry | 5.4.0-ce |
-| Confluent Control Center | 5.4.0 |
-| Kadmin | 0.9.3 |
-| Flume | 1.11.0 |
-| Postgres | 15.1 |
-| pgAdmin4 | 6.18 |
-| Cassandra | 4.1.0 |
-
-## Running big data cluster
-To start the cluster run the following command from the project directory.
-
-### Start basic cluster 
-The basic cluster gives access to Hadoop, PySpark, Airflow, Flume and Zeppelin. It's a great place to start if you want to try out some of these tools without having to install them on your computer. 
-
-##### On Linux
-```sh
-sudo docker-compose -f basic-hadoop-docker-compose.yaml up
-```
-
-##### On Windows 10
-```sh
-docker-compose -f basic-hadoop-docker-compose.yaml up
-```
-> Note: You need to install WSL 2 on windows to run this cluster.
-
-### Start basic cluster + Hive + Hue + DB
-This file starts the basic cluster, Hive, Hue, Postgres, pgAdmin & Cassandra. This is great for building batch processing pipelines.
-
-##### On Linux
-```sh
-sudo docker-compose -f hive-sqoop-postgres-cassandra-docker-compose.yaml up
-```
-
-##### On Windows 10
-```sh
-docker-compose -f hive-sqoop-postgres-cassandra-docker-compose.yaml up
-```
-> Note: You need to install WSL 2 on windows to run this cluster.
-
-### Start basic cluster + kafka + schema registry
-This file starts the basic cluster, zookeeper, kafka broker & schema registry. This is great for building streaming pipelines.
-
-##### On Linux
-```sh
-sudo docker-compose -f kafka-docker-compose.yaml up
-```
-
-##### On Windows 10
-```sh
-docker-compose -f kafka-docker-compose.yaml up
-```
-> Note: You need to install WSL 2 on windows to run this cluster.
-
-### Start kafka cluster
-This file starts a kafka cluster. This is great for getting started with kafka and schema registry.
-
-##### On Linux
-```sh
-sudo docker-compose -f kafka-zookeper.yaml up
-```
-
-##### On Windows 10
-```sh
-docker-compose -f kafka-zookeper.yaml up
-```
-> Note: You need to install WSL 2 on windows to run this cluster.
-
-### Start full cluster
-This file starts all the framework/technology that are mentioned [here](#applications).
-
-##### On Linux
-```sh
-sudo docker-compose -f all-docker-compose.yaml up
-```
-
-##### On Windows 10
-```sh
-docker-compose -f all-docker-compose.yaml up
-```
-> Note: You need to install WSL 2 on windows to run this cluster.
-
-## Access docker containers
-You can access a container by running this command 
-```sh
-sudo docker exec -it <container-name> /bin/bash
-```
-If this does not work replace `/bin/bash` with `/bin/sh`
-
-## Access hadoop ecosystem
-This is a list of technologies or frameworks are exposed to the Host. You can access these using the following urls.
-|Application | Url |
-|--- |--- |
-| Namenode UI | http://localhost:9870/dfshealth.html#tab-overview |
-| Namenode(IPC port) | http://localhost:9000 |
-| History server | http://localhost:8188/applicationhistory |
-| Datanode | http://localhost:9864/ |
-| Nodemanager | http://localhost:8042/node |
-| Resource manager | http://localhost:8088/ |
-| Hue | http://localhost:8888 |
-| Spark Master UI | http://localhost:8080 |
-| Spark Slave UI | http://localhost:8081 |
-| Spark Driver UI | http://localhost:4040 (accessible only after a driver is started) |
-| Zeppelin UI | http://localhost:8082 |
-| Airflow UI | http://localhost:3000 |
-| pgAdmin UI | http://localhost:5000 |
-| Zookeeper|  http://localhost:2181 |
-| kafka broker | http://localhost:9092 |
-| Schema Registry | http://localhost:8083 |
-| Kadmin UI | http://localhost:8084/kadmin/ |
-| Kafka Control Center | http://localhost:9021 |
-
-## Containers running in the cluster
-Below are containers running in the cluster.
-|Container Name | Installed Frameworks/Tech | Description |
-|--- |--- |--- |
-| namenode | HDFS Namenode, Spark Master Node, Spark Slave Node, Zeppeline, Airflow, Flume & Python | It acts as a namenode & also has access to other framework/tech. |
-| datanode | HDFS Datanode, Python | It acts as a datanode & python is installed. |
-| resourcemanager | YARN, Python | It acts as YARN & python is installed. Default YARN scheduler is set to `CapacityScheduler`. |
-| nodemanager | Nodemanager, Python | It acts as a nodemanager & python is installed. |
-| historyserver | History Server | Tracking of past jobs are delegated to History server. |
-| hive-server | Hive server 2, Sqoop | Hive server 2 runs on this container, You can also create & execute sqoop jobs from this container. |
-| hive-metastore | Hive metastore | Hive metastore service runs here. It is used to store Hive ralated metadata |
-| hive-metastore-postgresql | Postgres | Used by Hive metastore to store metadata. |
-| hue | Hue Server | Hue server run here.|
-| huedb | Postgres | Used by Hue server to store metadata. |
-| external_postgres_db | Postgres | It's a relational DB where you can store your data. |
-| external_pgadmin | pgAdmin | You can use this to access Postgres server running in external_postgres_db container. |
-| cassandra | Cassandra | It's a non-relational column-oriented DB where you can store your data. |
-| zookeeper | Confluent Zookeper | This container runs zookeeper which keeps track of kafka broker. |
-| kafka-broker | Confluent Kafka Broker | This container runs a confluent kafka broker. |
-| schema-registry | Confluent Schema Registry | This container runs confluent schema registry which you can use to store schemas. |
-| kadmin | Kadmin | This container runs kadmin. You can use this application to produce & consume messages. It supports `AVRO` format data. |
-| control-center | Confluent Control Center | This container runs confluent control center. Control center can be used to consume messages, look at broker status & create schemas in schema-registry. |
-
-## Access HDFS
-You can access HDFS from Hue or Namenode UI. 
-> Note: Hue allows you to access file content on HDFS, however Namenode's UI does not support this. 
-
-You can also access HDFS from inside the containers running hadoop such as `namenode`.
-
-## Access Postgres DB
-You can access Postgres server using pgAdmin. You can run SQL queries using the same.
-
-##### Postgres creds
-- user: external
-- password: external
-- db: external
-
-##### pgAdmin creds
-- email: pgadmin@xyz.com
-- password: external
-
-## Access Kadmin
-To access this look at the [Access hadoop ecosystem](#access-hadoop-ecosystem) section. You can create producers and consumers on kadmin. It will ask you for Kafka Host and Kafka Schema Registry Url before creating a producer or consumer. You can set Kafka Host and  Kafka Schema Registry Url to `kafka-broker:29092` and `http://schema-registry:8083` respectively.
-
-## Run hive queries
-You can run Hive queries using Hue.
-A thrift server runs on the top of hiveserver 2. Hue has been set up to establish a connection with the thrift server, which executes your Hive queries. 
-
-## Run PySpark
-Spark is installed in `namenode`. You need to access namenode container & run `spark-submit` command to run spark jobs.
-
-In this cluster You can run Spark in three modes:
-|Mode | Command |
-|--- |--- |
-| Local | spark-submit [python-script-path] |
-| [YARN](https://spark.apache.org/docs/latest/running-on-yarn.html) | spark-submit --master yarn --deploy-mode cluster --archives [file_path] --queue default [python-script-path]  |
-| [Stand Alone](https://spark.apache.org/docs/latest/spark-standalone.html) | spark-submit --master spark://namenode:7077 --deploy-mode cluster [python-script-path] |
-
-##### Run PySpark in YARN mode
-In this mode YARN takes care of scheduling spark job. You must create a compressed file that contains all of the packages if you're using any external packages, such as pandas.
-
-Run the below command to create this compressed file
-```sh
-conda pack -f -o conda_env.tar.gz
-```
-
-The above command will create `conda_env.tar.gz` in the current directory. You can then pass the absolute path of the file in `--archives` flag.
-
-> NOTE: You may choose not to add --archives flag if you're not using any external packages.
-
-##### Run PySpark in zeppeline
-For development purpose you can use [Zeppelin](https://zeppelin.apache.org/docs/latest/interpreter/spark.html) to run spark jobs. Select Spark Interpreter while creating a new script in zeppelin. Don't forget to add `%spark.pyspark` at the starting of the block/cell. Keep your spark related code in one block/cell. 
-> Note: Zeppeline is configured to run spark jobs in local mode.
-
-##### Schedule PySpark jobs in airflow
-You can schedule Spark Jobs from [Airflow](https://airflow.apache.org/docs/apache-airflow/stable/). You need [Spark Provider](https://airflow.apache.org/docs/apache-airflow-providers-apache-spark/stable/index.html) to schedule spark jobs which has already been installed. To run spark jobs in spark stand alone cluster set Host to `namenode` & port to `7077` while creating a spark connection in Airflow.
-
-## Run sqoop
-[Sqoop](https://sqoop.apache.org/docs/1.4.6/SqoopUserGuide.html) is installed in hive-server container. Below is a sample command to import data using sqoop.
-```sh
-sqoop import --connect jdbc:postgresql://external_postgres_db/external --username external --password external --table <your-table-name> --target-dir <dir-in-hdfs> --m 1
-```
-You can set mapper as per your needs, Since we're in development env I suggest using 1 mapper.
-
-Sqoop is configured to [store DB password](https://sqoop.apache.org/docs/1.4.6/SqoopUserGuide.html#_saved_jobs_and_passwords) when [sqoop job](https://sqoop.apache.org/docs/1.4.6/SqoopUserGuide.html#_saved_jobs) is created. It stores all the metadata in `$HOME/.sqoop`.
-
-##### Schedule sqoop jobs in airflow
-hive-server container houses an ssh server.
-[SSHOperator](https://airflow.apache.org/docs/apache-airflow-providers-ssh/stable/_api/airflow/providers/ssh/operators/ssh/index.html) in Airflow may be used to log into the hive server and run a Sqoop job. To login to hive-server from airflow, set Host to `hive-server`, Username to `root` & Password to container's password while creating a ssh connection in Airflow.
-
-Below is the command to set password in a container.
-```sh
-passwd root
-```
-
-## Run airflow
-In order to schedule jobs in Airflow, DAGs must be created.
-Your DAG scripts must be kept in the project directory's `/dags` directory. Your scripts will automatically sync with the container, and you will be able to see your DAG via Airflow's user interface.
-
-By default, SequentialExecutor is used to schedule jobs. This executor can only execute 1 task at once. If you want to schedule multiple jobs parallelly then You will have to configure Airflow to use other [executors](https://airflow.apache.org/docs/apache-airflow/stable/executor/index.html) such as LocalExecutor.
-
-SequentialExecutor uses SQLite to store metadata. If you want to use other executor such as LocalExecutor, you might need to configure Airflow to use other DBs like Postgres. You can make use of Postgres that comes with this cluster.
-
-##### Airflow creds
-| name | value |
-|--- |--- |
-| username | admin |
-| password | admin |
-| firstname | admin |
-| lastname | admin |
-| role | Admin |
-| email | admin@gmail.com |
-
-## Create Kafka Topic
-You can create kakfka topic either from `CLI` or using `Kafka control center`. You can set the maximum value of replication factor to 1 as this cluster runs only one kafka broker.
-
-##### CLI
-To create kafka topic via CLI, you need to access `kafka-broker` container and then run the following command.
-```sh
-kafka-topics --bootstrap-server kafka-broker:29092 --create --topic <topic-name> --partitions <int> --replication-factor <int>
-```
-
-##### Kafka Control Center
-This is an UI provided by Confluent. To access this look at the [Access hadoop ecosystem](#access-hadoop-ecosystem) section.
-
-## Create Kafka Producer
-You can create kakfka producer either from `CLI` or using `KAdmin`.
-
-### CLI
-##### Using kafka-broker container
-To create a simple kafka producer via CLI, you need to access `kafka-broker` container and then run the following command.
-```sh
-kafka-console-producer --broker-list kafka-broker:29092 --topic <topic-name> --producer-property <key>=<value>
-```
-> Note: The above command creates a producer that sends data without a key.
-
-##### Using schema-registry container
-To create an avro producer via CLI, you need to access `schema-registry` container and then run the following command.
-```sh
-kafka-avro-console-producer \
---broker-list kafka-broker:29092 \
---topic <topic-name>  \
---property schema.registry.url=http://schema-registry:8083 \
---property value.schema='<avro-schema>'
-```
-> Note: This producer will not create a schema in schema-registry. It directly uses the schema that you've provided in the above command. Above command accepts schema of value.
-
-### Kadmin
-You can create a simple producer or avro producer using Kadmin.
-
-## Create Kafka Consumer
-You can create kakfka consumer either from `CLI` or using `KAdmin`.
-
-### CLI
-##### Using kafka-broker container
-To create a simple kafka consumer via CLI, you need to access `kafka-broker` container and then run the following command.
-```sh
-kafka-console-consumer --bootstrap-server kafka-broker:29092 --topic <topic-name> --from-beginning --formatter kafka.tools.DefaultMessageFormatter --property print.timestamp=true --property print.key=true --property print.value=true
-```
-> Note: The above command creates a consumer which reads from the beginning.
-
-##### Using schema-registry container
-To create an avro consumer via CLI, you need to access `schema-registry` container and then run the following command.
-```sh
-kafka-avro-console-consumer \
---bootstrap-server kafka-broker:29092 \
---topic <topic-name> \
---from-beginning \
---property schema.registry.url=http://schema-registry:8083
-```
-> Note: The above command creates a consumer which reads from the beginning.
-
-### Kadmin
-You can create a simple consumer or avro consumer using Kadmin.
-
-## Run flume agents
-[Flume](https://flume.apache.org/FlumeUserGuide.html) is installed in `namenode`. To configure flume agents you need to configure `flume_config/flume.conf` file in the project directory. To start flume agents you need to access namenode & run the below command.
-```sh
-flume-ng agent --conf conf --conf-file /opt/flume/conf/flume.conf --name <agent-name> -Dflume.root.logger=INFO,console
-```
-Above command runs flume in the console.
-
-You can also create a Flume service & manage it as a service too.
-
-## Run queries in cassandra
-Access cassandra container & run the below command to start executing cql queries.
-```sh
-cqlsh
-```
-
-## Available Jars
-Here is a list of extra jar files available which can be used in "spark".
-These jar files are located in `/opt/spark/jars/` in `namenode` container. 
-| Group Id | Artifact Id | File Name | Version |
-| ---| ---| ---| ---|
-| com.sun.jersey | jersey-client | jersey-client-1.19.4.jar | 1.19.4 |
-| com.sun.jersey | jersey-bundle | jersey-bundle-1.19.4.jar | 1.19.4 |
-| com.datastax.spark | spark-cassandra-connector-assembly_2.12 | spark-cassandra-connector-assembly_2.12-3.2.0.jar | 3.2.0 |
-| mysql | mysql-connector-java | mysql-connector-java-5.1.49.jar | 5.1.49 |
-| org.apache.spark | spark-sql-kafka-0-10_2.12 | spark-sql-kafka-0-10_2.12-3.2.1.jar | 3.2.1 |
-| org.apache.kafka | kafka-clients | kafka-clients-3.2.2.jar | 3.2.2 |
-| org.apache.spark | spark-avro_2.12 | spark-avro_2.12-3.2.2.jar | 3.2.2 |
-| org.apache.spark | spark-token-provider-kafka-0-10_2.12 | spark-token-provider-kafka-0-10_2.12-3.2.2.jar | 3.2.2 |
-| org.apache.commons | commons-pool2 | commons-pool2-2.11.1.jar | 2.11.1 |
-| org.apache.avro | avro-mapred | avro-mapred-1.11.1.jar | 1.11.1 |
-| org.postgresql | postgresql | postgresql-42.5.0.jar | 42.5.0 |
-
-## Configure hadoop
-You can configure resource allocation to each container by modifying `hadoop.env` in the project directory.
-
-##### Configure YARN
-- YARN_CONF_yarn_scheduler_capacity_root_default_maximum___allocation___mb: This determines the maximum memory allocation to YARN scheduler. By default it is set to `8GB`. You may increase it if you have more resources to spare. 
-- YARN_CONF_yarn_scheduler_capacity_root_default_maximum___allocation___vcores: This determines the maximum number of core allocation to YARN scheduler. By default it is set to `4 cores`. You may increase it if you have more resources to spare.
-
-##### Configure nodemanager
-- YARN_CONF_yarn_nodemanager_resource_memory___mb: This determines the maximum memory allocation to nodemanager. By default it is set to `16GB`. I suggest not to decrease it otherwise, the map-reduce jobs might get stuck due unavailability of resources.
-- YARN_CONF_yarn_nodemanager_resource_cpu___vcores: This determines the maximum number of core allocation to nodemanager. By default it is set to `8 cores`. I suggest not to decrease it.
-
-##### Configure map reduce
-- MAPRED_CONF_mapreduce_map_memory_mb: This determines the maximum memory allocation to a mapper. By default it is set to `4GB`. You may increase it if you have more resources to spare. 
-- MAPRED_CONF_mapreduce_reduce_memory_mb: This determines the maximum memory allocation to a reducer. By default it is set to `8GB`. You may increase it if you have more resources to spare. 
-
-## Configure hue
-You can configure Hue server by modifying `hue-overrides.ini` in the project directory.
-
-##### Configure hue DB
-Hue is configured to use postgres running in `huedb` container. Below is the default config.
-```sh
-engine=postgresql_psycopg2
-host=huedb
-port=5432
-user=hue
-password=hue
-name=hue
-```
-
-##### Configure hue to run hive
-Hue connects to the `hive-server` container using port `10000`. Below is the config for the same
-```sh
-[beeswax]
-
-  # Host where HiveServer2 is running.
-  # If Kerberos security is enabled, use fully-qualified domain name (FQDN).
-  hive_server_host=hive-server
-  
-  # Port where HiveServer2 Thrift server runs on.
-  hive_server_port=10000
-
-  thrift_version=7
-```
-
-## Configure zeppelin
-You can [configure](https://zeppelin.apache.org/docs/0.8.0/setup/operation/configuration.html) zeppelin by modifying `configs/zeppelin-env.sh` & `configs/zeppelin-site.xml` files.
-
-##### Environment variables
-Below are variables set in `zeppelin-env.sh` which is used by zeppelin.
-| Variable | Value |
-|--- |--- |
-| JAVA_HOME | /usr/lib/jvm/java-8-openjdk-amd64/ |
-| SPARK_MASTER | spark://namenode:7077 |
-| ZEPPELIN_PORT | 8082 |
-| SPARK_HOME | /opt/spark |
-| HADOOP_CONF_DIR | /etc/hadoop |
-| PYSPARK_PYTHON | /root/anaconda/bin/python3.9 |
-| PYTHONPATH | /root/anaconda/bin/python3.9 |
-
-##### Java properties
-Java properties can be configured from `zeppelin-site.xml`. I've modified it's default config to expose the server externally. Below is the modified config.
-```sh
-<property>
-  <name>zeppelin.server.addr</name>
-  <value>0.0.0.0</value>
-  <description>Server binding address</description>
-</property>
-```
-
-##### Configure spark interpreter
-Follow the below steps
-1. click on profile in the top right corner of the screen.
-2. click on Interpreter.
-3. scroll down until you see `spark` & click on edit.
-
-## Configure airflow
-You can configure airflow by modifying `configs/namenode_airflow.cfg` in the project directory.
-
-##### Config variables
-Below are variables that I've configured. You can leave other variables as it is.
-| Variable | Value |
-|--- |--- |
-| dags_folder | /root/airflow/dags |
-| sql_alchemy_conn | sqlite:////root/airflow/airflow.db |
-| [executor](https://airflow.apache.org/docs/apache-airflow/stable/executor/index.html) | SequentialExecutor |
-
-You can use other executors such as `LocalExecutor`. To use this executor you need to create a DB instance in a DB server, you can use `external_postgres_db` container for the same. Once the DB is created, set sql_alchemy_conn to postgresql+psycopg2://<username>:<password>@[IP/container-name]:5432/[db-name] & executor to LocalExecutor.
-
-##### Reload airflow
-After configuring the variables, you need to initiate a new DB instance & restart airflow server & scheduler. 
-
-Login to `namenode` by running this [command](#access-docker-containers) & run the below command to initiate a DB.
-```sh
-airflow db init && \
-airflow users create \
-    --username admin \
-    --password admin \
-    --firstname admin \
-    --lastname admin \
-    --role Admin \
-    --email admin@gmail.com
-```
-
-Run the below command to restart airflow server & scheduler. 
-```sh
-rm -rf ~/airflow/airflow-scheduler.pid && \
-rm -rf ~/airflow/airflow-webserver-monitor.pid && \ 
-rm -rf ~/airflow/airflow-webserver.pid && \
-airflow webserver -p 3000 -D --workers 1 && \
-airflow scheduler -D
-```
-> No need to run this the next time you start your cluster.
-
-## Configure sqoop
-You can configure sqoop by modifying `configs/hive_server/sqoop-site.xml` in the project directory.
-
-##### Java properties
-I’ve modified it’s default config so that it could save DB server password in the metastore. Below is the modified config.
-```sh
-<property>
-    <name>sqoop.metastore.client.record.password</name>
-    <value>true</value>
-    <description>If true, allow saved passwords in the metastore.
-    </description>
-</property>
-```
-
-## Configure ssh server
-A ssh server runs on hive-server container. You can configure it by modifying `configs/hive_server/sshd_config.conf` in the project directory. I've configured it to allow password authentication & login as root.
-
-## Build Custom Docker Images
-You can customize the images that is used in these docker YAML files. The directory `docker_image_conf` contains the Dockerfiles for creating images. 
-
-## Manage resources
-I recommend using a workstation with at least 4 hyper-threaded cores & 8GB RAM to run this cluster. Additionally, I suggest against running any other programmes simultaneously because doing so could lead to resource shortages and other issues when using certain ports.
-
-##### Reduce resource utilization 
-1. If you aren't using Hive, I advise starting the `basic cluster`.
-2. You can start the cluster without the external_pgadmin container if you do not need to execute SQL queries on Postgres.
-3. If you don't need cassandra, launch the cluster without it. 
-
-##### Spark & zeppelin
-1. when you run your PySpark code in zeppelin, it starts a spark driver code, this consumes a lot of resources, I recommend running `spark.stop()` & `sc.stop()` in the next block in zeppelin. This will stop the spark driver.
-2. If it still hogs resources, you can login to `namenode` & run `zeppelin-daemon.sh stop`. This will stop zeppelin.
-
-## Dependencies
-- [Docker](https://docs.docker.com/):
-    1. Install Docker on ubuntu: https://docs.docker.com/engine/install/ubuntu/
-    2. Install Docker on windows: https://docs.docker.com/desktop/install/windows-install/
-
-[website]: https://mrayonline.web.app
-[youtube]: https://www.youtube.com/@mrugankray7623
-[linkedin]: https://in.linkedin.com/in/mrugank-ray-543886149
-[buy_me_coffee]: https://www.buymeacoffee.com/mrugankray
+![](RackMultipart20231209-1-ccg9g8_html_23718ad54a0b27b6.png) **Réalisé par :**![](RackMultipart20231209-1-ccg9g8_html_a102b3588f890b1a.gif)
+
+*OKACHA Najia, ASSOUMA Roukéya, ABOUELKHIR Mohamed*
+
+*Projet 1 :* Création d'un Dashboard pour la visualisation en temps réel des données météorologiques en utilisant Kafka, Spark, Hive, Tableau et Apache Airflow.
+
+# *Table des matières*
+
+[I. Objectif du projet 2](#_Toc153039606)
+
+[II. Prérequis pour le projet - Installation et Configuration 2](#_Toc153039607)
+
+[1. Environnement de Développement 2](#_Toc153039608)
+
+[2. Configuration de l'Environnement Dockerisé 2](#_Toc153039609)
+
+[a. Création des Conteneurs 2](#_Toc153039610)
+
+[b. Exécution des conteneurs 6](#_Toc153039611)
+
+[c. Exécution d'un conteneur spécifique 7](#_Toc153039612)
+
+[3. Installation et Configuration de Tableau 7](#_Toc153039613)
+
+[a. Téléchargement de Tableau Desktop : 7](#_Toc153039614)
+
+[b. Activation de Tableau : 8](#_Toc153039615)
+
+[c. Connexion à Hive depuis Tableau : 8](#_Toc153039616)
+
+[d. Sélectionner la Table ou la Vue Hive : 10](#_Toc153039617)
+
+[e. Configuration des Connexions de Données : 10](#_Toc153039618)
+
+[III. Création du Dashboard pour la visualisation 11](#_Toc153039619)
+
+[1. Obtention de la clé d'API OpenWeatherMap 11](#_Toc153039620)
+
+[2. Collecte des Données Météorologiques depuis l'api vers un topic Kafka 12](#_Toc153039621)
+
+[3. Traitement et Stockage des Données avec Spark et Hive 14](#_Toc153039622)
+
+[4. Visualisation des Résultats avec Tableau 17](#_Toc153039623)
+
+[a. Importation des Données 17](#_Toc153039624)
+
+[b. Création des Visualisations 17](#_Toc153039625)
+
+[c. Création de Tableaux de Bord (Dashboard) 19](#_Toc153039626)
+
+[5. Orchestration avec Apache Airflow 20](#_Toc153039627)
+
+[a. Interface utilisateur 20](#_Toc153039628)
+
+[b. Création et exécution du dag 21](#_Toc153039629)
+
+# I. Objectif du projet
+
+Ce projet vise à mettre en place un système intégré pour le traitement et la visualisation en temps réel des données météorologiques en utilisant diverses technologies. Il débute par la collecte de données depuis l'API OpenWeatherMap. Ces données transitent ensuite par Kafka pour un traitement en temps réel via Spark Streaming. Les résultats obtenus sont stockés dans Hive, une base de données d'entrepôt dédiée. Enfin, ces données sont exploitées visuellement grâce à Tableau. L'intégralité de ce processus est déployée dans un environnement Dockerisé, simplifiant la gestion et le déploiement de l'infrastructure essentielle à cette chaîne de traitement des données météorologiques.
+
+# II. Prérequis pour le projet - Installation et Configuration
+
+Ce projet nécessite l'installation et la configuration préalable de plusieurs outils et environnements. Suivez attentivement ces étapes pour garantir un déroulement sans accroc du projet.
+
+## 1. Environnement de Développement
+
+1. Système d'Exploitation : Vérifiez que vous disposez d'un système d'exploitation compatible avec les outils nécessaires (Exemple : Ici, on utilise Windows).
+2. RAM : Assurez-vous d'avoir une mémoire RAM supérieure à 13 Go.
+3. Docker :
+  - Téléchargez et installez Docker en suivant les instructions spécifiques à votre système d'exploitation : [lien vers Docker](https://docs.docker.com/get-docker/)
+  - Vérifiez l'installation avec la commande : docker –version
+4. Docker Compose :
+  - Téléchargez et installez Docker Compose en suivant les instructions spécifiques à votre système d'exploitation : [lien vers Docker Compose](https://docs.docker.com/compose/install/)
+  - Vérifiez l'installation avec la commande : docker-compose --version
+
+## 2. Configuration de l'Environnement Dockerisé
+
+1.
+### Création des *Conteneurs*
+
+- Élaborez un fichier docker-compose.yml décrivant les services nécessaires pour cette application.Se referer au fichier docker-compose.yml dans le dossier du projet.
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/96ed2526-f2bb-4988-b759-d00f11cf6880)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/7c4fb362-8c49-44f6-b387-7e50b4dad659)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/5b386087-15c4-484b-b522-418137294c95)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/e0ee99b0-938e-4c41-b298-c28417f4e397)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/9b7775e7-3bc5-47c0-bffb-e16aa0f40d6b)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/c5230c47-8f57-417c-ab2e-078bbd92a2bc)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/84206c12-a02c-416e-94bc-d83d10f7dfd8)
+
+
+        Figure 1.1 Code du fichier docker-compose pour la création des conteneurs docker
+
+1.
+### Exécution des conteneurs
+
+Pour démarrer les conteneurs définis dans votre fichier *docker-compose.yml* et les exécuter en arrière-plan, utilisez la commande suivante : docker-compose up -d
+
+Une fois les conteneurs lancés, vous pouvez lister les identifiants des conteneurs en cours d'exécution et leurs ports associés en utilisant la commande : docker ps
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/d70aa62d-910a-4f03-b7f2-8aa232dfb7fa)
+
+
+Figure 1.2 Affichage de la liste des conteneurs
+
+Pour accéder aux services dans un navigateur web, utilisez les URL suivantes :
+
+- Zeppelin : [http://localhost:8082](http://localhost:8080/)
+- Confluent : [http://localhost:9021](http://localhost:9021/)
+- Spark : [http://localhost:8080](http://localhost:8080/)
+- Airflow : [http://localhost:3000](http://localhost:3000/)
+- Namenode : [http://localhost:9870](http://localhost:5432/)
+
+Assurez-vous que les services sont correctement démarrés et que les ports spécifiés dans votre fichier *docker-compose.yml* ne sont pas utilisés par d'autres applications sur votre système.
+
+1.
+### Exécution d'un conteneur spécifique
+
+Pour accéder au shell d'un conteneur spécifique en mode bash, utilisez la commande suivante, en remplaçant *id\_container* par l'identifiant du conteneur souhaité :
+
+docker exec -it id\_container /bin/bash
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/996face2-d95b-4bc2-b9f9-d73bbe61fc28)
+
+
+Figure 1.3 Exécution d'un conteneur spécifique
+
+## 3. Installation et Configuration de Tableau
+
+Dans le cadre de ce projet, nous utilisons Tableau Desktop. Suivez ces étapes pour installer et configurer Tableau Desktop sur votre machine.
+
+1.
+### Téléchargement de Tableau Desktop :
+
+- Rendez-vous sur le site officiel de Tableau : [Tableau Download](https://www.tableau.com/products/desktop/download)
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/71e4b71d-601a-41b7-a4da-4f5c231026ae)
+
+
+Figure 1.4 Site de téléchargement de tableau desktop
+
+- Téléchargez la version appropriée de Tableau Desktop pour votre système d'exploitation (Windows ou Mac).
+- Installez Tableau en suivant les instructions fournies lors du processus d'installation.
+
+1.
+### Activation de Tableau :
+
+- Lors du premier lancement, Tableau Desktop vous demandera d'activer le produit. Entrez votre clé de licence si vous en avez une, ou choisissez la version d'essai.
+
+1.
+### Connexion à Hive depuis Tableau :
+
+Pour connecter Tableau à Hive, vous pouvez utiliser le pilote ODBC (Open Database Connectivity) pour Hive. Suivez ces étapes générales pour effectuer cette connexion.
+
+- Téléchargez et installez un pilote ODBC compatible avec Hive sur votre machine. Un exemple courant est le pilote Apache Hive ODBC Driver, que vous pouvez trouver sur le site de CDATA : [CDATA Hive ODBC Driver](https://www.cdata.com/drivers/hive/odbc/).
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/08e5815b-3be5-4fe0-ae78-342e580bf4cb)
+
+
+Figure 1.5 Site de téléchargement de ODBC pour Hive
+
+- Après l'installation du pilote ODBC, configurez-le en fournissant les détails de connexion à votre cluster Hive, tels que l'adresse du serveur Hive, le port, le nom d'utilisateur, le mot de passe, etc.
+
+- Dans Tableau Desktop, sous l'onglet "Données", choisissez "ODBC" comme type de connexion.
+
+- Sélectionnez le pilote ODBC pour Hive que vous avez installé.
+
+- Entrez les informations de connexion nécessaires, telles que le nom du serveur Hive, le port, le nom d'utilisateur et le mot de passe.
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/eeb033d3-fd67-48ab-a844-b1b83fa5c171)
+
+
+Figure 1.6 Etablissement de la connexion entre Hive et Tableau
+
+- En fonction du pilote que vous utilisez, il peut y avoir des options supplémentaires à configurer. Consultez la documentation du pilote pour plus de détails.
+
+- Après avoir configuré les paramètres de connexion, cliquez sur le bouton "Connecter" pour établir la connexion entre Tableau et Hive.
+
+*Note :* Par défaut, aucun utilisateur n'est configuré sur Hive. Vous devez définir ici un utilisateur et un mot de passe que vous utiliserez à chaque fois que vous établirez la connexion.
+
+1.
+### Sélectionner la Table ou la Vue Hive :
+
+Une fois connecté, vous pourrez voir les bases de données Hive disponibles. Sélectionnez la base de données, puis choisissez la table ou la vue Hive que vous souhaitez analyser dans Tableau. Pour le moment vous il n'y a aucune table dans la base de données par défaut de hive.
+
+1.
+### Configuration des Connexions de Données :
+
+Vous pouvez configurer les connexions de données pour qu'elles soient dynamiques et mises à jour automatiquement en fonction des changements dans vos sources de données.
+
+# III. Création du Dashboard pour la visualisation
+
+1.
+## Obtention de la clé d'API OpenWeatherMap
+
+- Accédez au site web d'OpenWeatherMap: [OpenWeatherMap](https://openweathermap.org/api).
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/ebaf78aa-6787-47f2-bc61-85225fef1ec3)
+
+
+Figure 3.1 Site de OpenWeather
+
+- Cliquez sur "Sign Up" (S'inscrire) pour créer un nouveau compte.
+- Connectez-vous à votre compte OpenWeatherMap en utilisant les identifiants que vous avez créés.
+- Une fois connecté, recherchez la section "My API keys" (clés API) dans votre espace utilisateur.
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/d296b590-cd3a-4e51-b7b5-c1385211a525)
+
+
+Figure 3.2 Obtention de la clé d'api
+
+- Une fois la clé générée, copiez-la. Cette clé sera utilisée dans vos requêtes API pour identifier votre compte et autoriser l'accès aux données météorologiques.
+
+1.
+## Collecte des Données Météorologiques depuis l'api vers un topic Kafka
+
+Pour collecter des données météorologiques depuis l'API OpenWeatherMap et les publier sur un topic Kafka en utilisant Python, vous pouvez utiliser la bibliothèque requests pour effectuer la requête API et la bibliothèque kafka-python pour publier les données sur Kafka. Assurez-vous d'installer ces bibliothèques en utilisant la commande suivante si elles ne sont pas déjà installées.
+
+- Créer un notebook python sur zeppelin et coller le code de collecte des données depuis l'api. Vous trouverez le code dans le fichier kafka\_stream dans le dossier du projet.
+- Assurer vous de remplacer la clé d'api par la vôtre.
+- Installer le package kafka-python avec le code suivant :
+
+| import subprocess
+# Replace 'kafka-python' with the package you want to installpackage\_to\_install = 'kafka-python'
+# Use subprocess to run the pip install commandsubprocess.call(['pip', 'install', package\_to\_install]) |
+| --- |
+
+- Assurez-vous que Kafka est en cours d'exécution et accessible depuis Zeppelin.
+
+Note : en fonction de votre api : gratuit ou payant vous pouvez avoir accès à différents types de données. Assurer vous donc d'adapter le code en fonction de la structure des données météorologiques que vous souhaitez collecter.
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/54b5758d-7941-4247-952b-b698cd53fb18)
+
+
+Figure 3.3 Code de collecte des données depuis l'api vers un topic Kafka
+
+Les données /les messages peuvent etre visualiser au niveau du control center à l'adresse ([*http://localhost:*** 90*](http://localhost:9021/)**21*)
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/3597923f-690a-40de-bd68-2b9a6972d5fe)
+
+Figure 3.4 Visualisation des données du topic Kafka sur le control center
+
+1.
+## Traitement et Stockage des Données avec Spark et Hive
+
+Pour effectuer le traitement et le stockage des données avec Spark et Hive en utilisant PySpark dans Zeppelin, vous pouvez suivre ces étapes.
+
+Assurez-vous que votre environnement est correctement configuré pour utiliser PySpark avec Zeppelin et que tout fonctionne correctement.
+
+Le code à la Figure 3.5 orchestre la réception de données depuis le topic Kafka, lesquelles sont soumises à des opérations de traitement en temps réel à l'aide de Spark Streaming. Une fois ces traitements effectués, les résultats obtenus sont consignés et enregistrés dans Hive, permettant ainsi une structuration et une conservation optimales de ces données traitées au sein de la base de données Hive.
+
+- Créer un nouveau notebook PySpark sur zeppelin et coller le code à exécuter. Vous trouverez le code dans le ficher spark\_stream dans le dossier du projet.
+
+- Avant de lancer l'exécution de votre code (spark\_stream) créer une table weather\_data dans Hive, qui va contenir les données. Par défaut cette table sera enregistré dans la base de données default: Ci-dessous le script de création de la table.
+
+| CREATE TABLE IF NOT EXISTS weather\_data (weather\_main STRING,weather\_description STRING,temp DOUBLE,temp\_min DOUBLE,temp\_max DOUBLE,pressure INT,humidity INT,visibility INT,wind\_speed DOUBLE,dt STRING,country STRING,sunrise STRING,sunset STRING,timezone INT,name STRING); |
+| --- |
+
+Par la suite lancer l'exécution de votre code.
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/09312238-efba-477d-9795-c47279d77263)
+
+
+Figure 3.5 Code pour récupérer les données du topic et les envoyer vers Hive
+
+Pour vérifier que les données ont été correctement stockées dans Hive, accéder à l'interface de Hadoop.
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/ef93a023-265f-4548-9ad1-fcdb28ebb494)
+
+
+Figure 3.6 Vérification au niveau du namenode de l'ajout des données sur Hive
+
+Par la suite vous pouvez vérifier dans la base de données pour s'assurer que les données ont bien été enregistré :
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/cea62da7-c8ec-4ec2-8d3a-c2fa32f8b7c4)
+
+
+Figure 3.7 Vérification au niveau de Hive
+
+1.
+## Visualisation des Résultats avec Tableau
+
+La visualisation des résultats avec Tableau nécessite que les données météorologiques collectées soient stockées dans un format compatible avec Tableau, tel que dans une base de données Hive. Assurez-vous d'avoir suivi les étapes précédentes, notamment la configuration de Tableau pour se connecter à Hive.
+
+Voici comment vous pouvez visualiser les données dans Tableau après avoir suivi les étapes du projet.
+
+1.
+### Importation des Données
+
+- Connecter vous à nouveau à Hive si nécessaire
+
+- Une fois connecté à Hive, vous verrez les bases de données disponibles. Sélectionnez la base de données où vous avez stocké les données météorologiques.
+
+- Choisissez la table ou la vue qui contient les données météorologiques.
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/10045213-5945-4bc3-9470-326f9d27ca10)
+
+Figure 3.8 Importation des données de Hive sur tableau
+
+1.
+### Création des Visualisations
+
+- Allez dans l'onglet "Feuille" pour commencer à créer vos visualisations.
+
+- Sur la gauche, vous verrez une liste de dimensions et de mesures (valeurs numériques). Faites glisser les dimensions et les mesures souhaitées vers les étagères "Colonnes" et "Lignes".
+
+- En fonction des données que vous avez, choisissez le type de visualisation adapté. Par exemple, utilisez un diagramme linéaire pour suivre une tendance temporelle, ou une carte pour afficher des données géographiques.
+
+- Ajoutez des filtres pour permettre aux utilisateurs de sélectionner des plages de dates, des villes ou d'autres critères spécifiques.
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/8ad55e07-71b1-4876-af55-fa602087552b)
+
+
+Figure 3.9 Visualisation de la pression par date pour chaque ville
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/2b42b6b2-a99a-4ab0-b970-627eef72548e)
+
+Figure 3.10 Visualisation des températures à chaque date pour chaque ville
+
+1.
+### Création de Tableaux de Bord (Dashboard)
+
+Allez dans l'onglet "Tableau de Bord" pour créer une vue d'ensemble qui combine plusieurs visualisations.
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/6bb82f6a-27ba-43ea-a729-efb979eda156)
+
+Figure 3.11 Tableau de bord représentant l'ensemble des visualisations
+
+1.
+## Orchestration avec Apache Airflow
+
+Airflow est une plateforme qui vous permet de créer et d'exécuter des flux de travail. Un flux de travail est représenté sous la forme d'un [DAG](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html) (un graphe acyclique dirigé) et contient des éléments de travail individuels appelés [Tâches](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/tasks.html) , organisés avec des dépendances et des flux de données pris en compte.
+
+Un DAG spécifie les dépendances entre les tâches et l'ordre dans lequel les exécuter et exécuter les nouvelles tentatives.
+
+Les tâches elles-mêmes décrivent ce qu'il faut faire, qu'il s'agisse de récupérer des données, d'exécuter une analyse, de déclencher d'autres systèmes, ou plus encore.
+
+1.
+### Interface utilisateur
+
+Airflow est livré avec une interface utilisateur qui vous permet de voir ce que font les DAG et leurs tâches, de déclencher des exécutions de DAG, d'afficher les journaux et d'effectuer un débogage et une résolution limités des problèmes avec vos DAG.
+
+Pour se connecter à l'interface utilisez les identifiants suivants :
+
+- Nom d'utilisateur : admin
+- Mot de passe : admin
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/8d1d2203-9b1b-4ec1-93ec-43231c83c659)
+
+Figure 3.12 Interface utilisateur de Airflow
+
+1.
+### Création et exécution du dag
+
+- Utilisez votre éditeur de code préféré (comme VSCode, PyCharm, etc.).
+
+- Créez un nouveau dossier appelé "dags" à l'emplacement où vous souhaitez stocker vos DAGs.
+
+- À l'intérieur du dossier "dags", créez un fichier Python pour votre DAG, par exemple, "dag.py".
+
+- Dans ce fichier, écrivez le code décrivant les différentes étapes du processus.
+
+Vous trouverez le code dans le fichier dag.py dans le dossier du projet, copier et coller le code dans votre fichier et faites les installations nécessaires.
+
+- Faites toutes les installations de packages nécessaires avec pip ou si vous utiliser PyCharm à partir de l'interpréteur.
+
+- Dans le code du dag modifier les adresses des notebooks selon les id
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/eed5453e-46b6-48e5-bee7-4afcd7f319aa)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/5f20a79c-57eb-4465-a7d3-4ab489b5d60e)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/c1c8b8c1-ed51-414b-bfa7-f0f42f1d5f97)
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/7d9d1f98-d912-450f-b550-0a8b09ae8495)
+
+Figure 3.13 Code du dag du projet
+
+- Assurez-vous qu'Airflow est en cours d'exécution et lancer l'exécution de votre dag.
+
+- Airflow va automatiquement détecter et charger votre DAG.
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/a7c5d701-ea4d-49ff-8b70-586555b46aaa)
+
+Figure 3.14 Vérification de l'ajout du nouveau dag à la liste des dags
+
+![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/100485014/3fad141b-9d5a-444e-b1c0-8063bce1acdc)
+
+Figure 3.15 Visualisation de l'exécution du dag créer
+
+Si vous avez planifié le processus de collecte, de traitement et de stockage des données à intervalles réguliers avec Apache Airflow, vous pouvez configurer Tableau pour actualiser automatiquement les données à partir de Hive.
