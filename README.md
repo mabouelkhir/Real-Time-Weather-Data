@@ -108,7 +108,7 @@ Pour accéder aux services dans un navigateur web, utilisez les URL suivantes :
 - Confluent : [http://localhost:9021](http://localhost:9021/)
 - Spark : [http://localhost:8080](http://localhost:8080/)
 - Airflow : [http://localhost:3000](http://localhost:3000/)
-- Namenode : [http://localhost:9870](http://localhost:5432/)
+- Namenode : [http://localhost:9870](http://localhost:9870/)
 
 Assurez-vous que les services sont correctement démarrés et que les ports spécifiés dans votre fichier *docker-compose.yml* ne sont pas utilisés par d'autres applications sur votre système.
 
@@ -252,7 +252,7 @@ Le code à la Figure 3.5 orchestre la réception de données depuis le topic Kaf
 
 - Avant de lancer l'exécution de votre code (spark\_stream) créer une table weather\_data dans Hive, qui va contenir les données. Par défaut cette table sera enregistré dans la base de données default: Ci-dessous le script de création de la table.
 
-| CREATE TABLE IF NOT EXISTS weather\_data (weather\_main STRING,weather\_description STRING,temp DOUBLE,temp\_min DOUBLE,temp\_max DOUBLE,pressure INT,humidity INT,visibility INT,wind\_speed DOUBLE,dt STRING,country STRING,sunrise STRING,sunset STRING,timezone INT,name STRING); |
+| CREATE TABLE IF NOT EXISTS weather\_data (weather\_main STRING,weather\_description STRING,temp DOUBLE,temp\_min DOUBLE,temp\_max DOUBLE,pressure INT,humidity INT,visibility INT,wind\_speed DOUBLE,dt STRING,country STRING,sunrise STRING,sunset STRING,timezone INT,name STRING) STORED AS ORC; |
 | --- |
 
 Par la suite lancer l'exécution de votre code.
