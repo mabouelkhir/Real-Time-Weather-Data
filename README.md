@@ -24,8 +24,11 @@ This project will start a docker cluster which gives access to the following fra
 
 ## Running the cluster
 To start the cluster run the following command from the project directory.
-
-| docker-compose up  |
+```sh
+docker-compose up
+```
 
 ## Access docker containers
-| docker exec -it <container-name> or <container-id> /bin/bash |
+```sh
+docker exec -it <container-name> or <container-id> /bin/bash
+```
