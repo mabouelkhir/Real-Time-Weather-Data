@@ -6,3 +6,19 @@ This project involves the creation of a real-time weather data dashboard using K
 ![image](https://github.com/mabouelkhir/Real-Time-Weather-Data/assets/95728627/098d0945-291f-439f-9187-2385810f963a)
 
 
+## Applications
+This project will start a docker cluster which gives access to the following frameworks/technologies.
+
+| Framework/Technology         | Version            |
+| ---------------------------- | ------------------ |
+| Hadoop                       | 3.2.1              |
+| Mini-Conda                   | 4.12.0             |
+| Python                       | 3.9                |
+| Spark                        | 3.2.2 (Scala 2.12) |
+| Apache Airflow               | 2.3.3              |
+| Apache Zeppelin              | 0.10.1             |
+| Hive                         | 2.3.2              |
+| Confluent Kafka              | 5.4.0-ce           |
+| Confluent Schema Registry    | 5.4.0-ce           |
+| Confluent Control Center     | 5.4.0              |
+
