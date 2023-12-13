@@ -22,3 +22,10 @@ This project will start a docker cluster which gives access to the following fra
 | Confluent Schema Registry    | 5.4.0-ce           |
 | Confluent Control Center     | 5.4.0              |
 
+## Running the cluster
+To start the cluster run the following command from the project directory.
+
+| docker-compose up  |
+
+## Access docker containers
+| docker exec -it <container-name> or <container-id> /bin/bash |
